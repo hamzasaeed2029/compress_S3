@@ -3,15 +3,14 @@ this is a project to check how to compress s3 contents using SAM and Lambda func
 
 PRE-REQUISITES:
 1) Suppose the name of s3 bucket is: highqbucket
-2) this bucket is growing in size with json files.
 
 TASK-1:
 
 PROCEDURE:
 	
-3) create sam environment and create "sam" folder in ubuntu.
-4) in sam folder, create sam template file "lambda.yml" and lambda function "lambda_function.py" under folder mylambda.
-5) run commands to test and validate:
+2) create sam environment and create "sam" folder in ubuntu.
+3) in sam folder, create sam template file "lambda.yml" and lambda function "lambda_function.py" under folder mylambda.
+4) run commands to test and validate:
 	$sam validate -t lambda.yml
 	$sam package -t lambda.yml --output-template-file template.yml --s3-bucket highqbucket
 	  the output of above commands will be successful like:
