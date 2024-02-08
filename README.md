@@ -152,3 +152,16 @@ Cost Saving Suggestions:
 5) If using Lambda function is a must and point 5) above isn't possible then schedule the lambda function to avoid frequent triggers and reduce number of lambda function requests per month. It should be scheduled to a sweet spot where it shouldn't jeaporadize the performance of Lmabda function by increasing the lambda function processing time.
 6) Regularly monitor our AWS usage and costs using AWS Cost Explorer or third-party tools to identify opportunities for optimization and cost savings.
 		
+
+
+TASK_5:
+
+While this solution provides automation and efficiency, there are some scalability concerns to consider:
+
+1) Concurrency Limitations: AWS Lambda has a concurrency limit that might affect the scalability of our solution, especially if there's a sudden surge in incoming events triggering the Lambda function simultaneously. We may need to request a limit increase or implement throttling mechanisms.
+2) S3 Bucket Throughput: As the S3 bucket grows and the frequency of object additions increases, we may encounter throughput limitations on the bucket. Ensuring that our S3 bucket settings are optimized and consider partitioning data across multiple buckets if necessary.
+3) Lambda Execution Time: If the compression process takes too long or if there are many objects being processed concurrently, we may hit Lambda's execution time limit. Optimizing our code for performance, like asynchronous processing or breaking down large tasks into smaller ones, can resolve this concern.
+4) Cost Management: With increased usage, especially if the Lambda function and S3 bucket are processing and storing large volumes of data, there may be cost implications. Monitor our AWS bill regularly and optimize resource usage where possible.
+5) Error Handling and Retry Mechanisms: Ensure robust error handling and retry mechanisms in our Lambda function to handle transient failures gracefully and prevent cascading failures.
+6) Monitoring and Logging: Implement thorough monitoring and logging to detect performance bottlenecks, errors, and resource utilization. Use AWS CloudWatch and other monitoring tools to gain insights into system behavior and performance.
+7) Additionally, if the compression algorithm doesn't effectively compress the data, it could impact both storage costs and processing time.
