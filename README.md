@@ -36,3 +36,9 @@ OR
  2.2) enter template.yml s3 url or upload by clicking "Upload a template file"
  2.3) stack will be up in some time.
  2.4) test the stack by inserting files in newly created s3 bucket "my-incoming-files-bucket"
+
+TASK-3:
+1) wrote as per best practices along with testing and code comments.
+2) each task has its own branch.
+3) each commit message is descriptive in order to be understandable.
+4) kept the readme file up-to-date along with procedure.
