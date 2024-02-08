@@ -145,11 +145,10 @@ So, the estimated monthly cost for the first month is $14,071.05 and from second
 
 
 Cost Saving Suggestions:
-	1) By optimizing storage class. Analyze our data access patterns and choose the appropriate storage class.
-	2) Implement lifecycle policies to automatically transition objects to cheaper storage classes or delete them when they're no longer needed. If the data retention period is for few months (1-3 months) and needs instant retrieval as well, we can use S3 One Zone-IA since it offers at least 30 days minimum storage duration and is cheaper than standard type. 
-	Moreover if the object retention period is for few years (1-2 years for example) and retrieval can be a possibility (say once a week) here than moving to Glacier flexible retrieval is better option in my point of view. But if we do not want any retrieval also we want it to store for a longer period (5-10 years for example) than we should be using Glacier deep archive.
-	3) If our services aren't in the same region then minimize unnecessary data transfer by processing data within AWS services located in the same region.
-	4) Instead of using lambda function for compression, compress the files before sending them over to S3. This will save the cost of Lambda function processing cost.
-	5) If using Lambda function is a must and point 5) above isn't possible then schedule the lambda function to avoid frequent triggers and reduce number of lambda function requests per month. It should be scheduled to a sweet spot where it shouldn't jeaporadize the performance of Lmabda function by increasing the lambda function processing time.
-	6) Regularly monitor our AWS usage and costs using AWS Cost Explorer or third-party tools to identify opportunities for optimization and cost savings.
-	
+1) By optimizing storage class. Analyze our data access patterns and choose the appropriate storage class.
+2) Implement lifecycle policies to automatically transition objects to cheaper storage classes or delete them when they're no longer needed. If the data retention period is for few months (1-3 months) and needs instant retrieval as well, we can use S3 One Zone-IA since it offers at least 30 days minimum storage duration and is cheaper than standard type. Moreover if the object retention period is for few years (1-2 years for example) and retrieval can be a possibility (say once a week) here than moving to Glacier flexible retrieval is better option in my point of view. But if we do not want any retrieval also we want it to store for a longer period (5-10 years for example) than we should be using Glacier deep archive.
+3) If our services aren't in the same region then minimize unnecessary data transfer by processing data within AWS services located in the same region.
+4) Instead of using lambda function for compression, compress the files before sending them over to S3. This will save the cost of Lambda function processing cost.
+5) If using Lambda function is a must and point 5) above isn't possible then schedule the lambda function to avoid frequent triggers and reduce number of lambda function requests per month. It should be scheduled to a sweet spot where it shouldn't jeaporadize the performance of Lmabda function by increasing the lambda function processing time.
+6) Regularly monitor our AWS usage and costs using AWS Cost Explorer or third-party tools to identify opportunities for optimization and cost savings.
+		
