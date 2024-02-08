@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'  # CloudFormation template version
+Description: Create an S3 bucket and Lambda function for zipping files  # Description of the template's purpose
+
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket  # Resource type: S3 bucket
+    Properties:
+      BucketName: my-incoming-files-bucket  # Adjust bucket name to meet S3 naming requirements
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role  # Resource type: IAM role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole  # Allow Lambda service to assume this role
+      Policies:
+        - PolicyName: LambdaS3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 's3:GetObject'  # Allow Lambda function to get objects from S3
+                  - 's3:PutObject'  # Allow Lambda function to put objects to S3
+                Resource: !GetAtt MyS3Bucket.Arn  # Specify the ARN of the S3 bucket
+
+  MyZipLambdaFunction:
+    Type: AWS::Lambda::Function  # Resource type: Lambda function
+    Properties:
+      Handler: index.handler  # Entry point for the Lambda function
+      Role: !GetAtt LambdaExecutionRole.Arn  # ARN of the IAM role for the Lambda function
+      Runtime: python3.8  # Runtime environment for the Lambda function
+      Timeout: 90  # Execution timeout for the Lambda function
+      Code:
+        S3Bucket: highqbucket  # S3 bucket containing the Lambda function code
+        S3Key: lambda_function.zip  # S3 key for the Lambda function code
+
+  S3BucketEvent:
+    Type: AWS::Lambda::Permission  # Resource type: Lambda permission
+    Properties:
+      Action: lambda:InvokeFunction  # Action to allow Lambda to invoke function
+      FunctionName: !GetAtt MyZipLambdaFunction.Arn  # ARN of the Lambda function
+      Principal: s3.amazonaws.com  # Service principal that invokes the function
+      SourceArn: !GetAtt MyS3Bucket.Arn  # ARN of the S3 bucket triggering the function
+

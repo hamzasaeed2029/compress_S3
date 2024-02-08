@@ -21,3 +21,18 @@ PROCEDURE:
 		Execute the following command to deploy the packaged template
 		sam deploy --template-file /var/www/sam/sam_project/template.yml --stack-name <YOUR STACK NAME>
 
+
+		
+TASK-2:
+
+1) Double check by running this command, AWS CLI will read the CloudFormation template from the specified file, check its syntax and structure, and then provide feedback on whether the template is valid or if there are any errors or issues that need to be addressed. 
+	$aws cloudformation validate-template --template-body file://template.yml
+2) deploy above in cloudformation stack using command: 
+	$sam deploy --template-file /var/www/sam/sam_project/template.yml --stack-name sam-stack --capabilities CAPABILITY_IAM --region eu-west-1
+OR
+
+2) The configuration template.yml use the zip file of lambda_function.py to be placed in highqbucket bucket. You can place the template.yml inside highqbucket.
+ 2.1) go to cloudformation and create stack.
+ 2.2) enter template.yml s3 url or upload by clicking "Upload a template file"
+ 2.3) stack will be up in some time.
+ 2.4) test the stack by inserting files in newly created s3 bucket "my-incoming-files-bucket"
